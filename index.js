@@ -59,7 +59,7 @@ const assets = {
         jumpLeft: null,
         idleLeft: null
     },
-    //platform: null,
+    platform: null,
     background: null
 };
 
@@ -306,13 +306,13 @@ class GenericObject {
 }
 
 // --- GLOBAL VARIABLES (Initialized later) ---
-// @ts-ignore
+/** @type {Player} */
 let player;
-// @ts-ignore
-let platforms;
+/** @type {Array<any>} */
+let platforms = []; // initialize to an empty array to avoid undefined iteration
 // FIX: Rename to 'genericObjects' since it's an array
-// @ts-ignore
-let genericObjects;
+/** @type {Array<GenericObject>} */
+let genericObjects = [];
 
 const keys = {
     right: {
@@ -617,7 +617,7 @@ function animate() {
     // --- Collision Detection ---
     // (This logic was correct)
     // @ts-ignore
-    /*platforms.forEach(platform => {
+    platforms.forEach(platform => {
         // @ts-ignore
         if (player.position.y + player.height <= platform.position.y &&
             // @ts-ignore
@@ -629,7 +629,7 @@ function animate() {
             // @ts-ignore
             player.velocity.y = 0;
         }
-    });*/
+    });
 
     // --- Win/Lose Conditions (Example) ---
     // You'll want to add these later.
@@ -652,6 +652,7 @@ function animate() {
 
 // --- EVENT LISTENERS ---
 window.addEventListener('keydown', (event) => {
+     // @ts-ignore
     switch (event.key) {
         case 'ArrowUp':
             // FIX: Only allow jumping if the player is on a surface (velocity.y is 0)
@@ -665,8 +666,8 @@ window.addEventListener('keydown', (event) => {
         case 'ArrowLeft':
             keys.left.pressed = true;
             player.currentSprite = assets.player.runLeft;
-            player.currentCropWidth = player.sprites.runLeft.cropWidth;
-            player.width = player.sprites.runLeft.width;
+            player.currentCropWidth = player.sprites.run.left.cropWidth;
+            player.width = player.sprites.run.left.width;
             break;
         case 'ArrowRight':
             keys.right.pressed = true;
